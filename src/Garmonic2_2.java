@@ -20,35 +20,4 @@ public class Garmonic2_2 extends Garmonic {
         }
         return fft_final;
     }
-    
-     public double[] calculateDFT(double[] signalsOfResultingHarmonic){
-        int N = signalsOfResultingHarmonic.length;
-
-        Map<Integer, Double> coefficients = getCoefficientsMap(N);
-
-        double[] dft_real = new double[N];
-        double[] dft_imaginary = new double[N];
-        double[] dft_final = new double[N];
-
-        for (int p = 0; p < N; p++) {
-            for (int k = 0; k < N; k++) {
-                dft_real[p] += signalsOfResultingHarmonic[k] * Math.cos(coefficients.get((p*k) % N));
-                dft_imaginary[p] += signalsOfResultingHarmonic[k] * Math.sin(coefficients.get((p*k) % N));
-            }
-            dft_final[p] = Math.sqrt(Math.pow(dft_real[p],2) + Math.pow(dft_imaginary[p],2));
-        }
-        return dft_final;
-    }
-
-  public Map<Integer,Double> getCoefficientsMap(int N){
-        Map<Integer, Double> coefficients = new HashMap<>();
-        for (int p = 0; p < N; p++) {
-            for (int k = 0; k < N; k++) {
-                coefficients.putIfAbsent((p*k) % N, 2 * Math.PI * p * k / N);
-            }
-        }
-        return  coefficients;
-  }
 }
-
-
